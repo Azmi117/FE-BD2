@@ -55,7 +55,9 @@ const WheelComponent = () => {
           onStopSpinning={() => {
             setMustSpin(false);
             const selectedPrizeNumber = prizeNumber;
-            setMessage(`Selamat kamu mendapatkan hadiah nomor ${selectedPrizeNumber}, silahkan cek email untuk mengetahuinya.`);
+            setMessage(
+              `Selamat princess! kamu dapet no. ${selectedPrizeNumber}, cek email yaa ❤.`
+              );
             setShowModal(true);
             sendGiftData(selectedPrizeNumber);
           }}
