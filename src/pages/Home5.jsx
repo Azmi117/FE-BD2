@@ -3,7 +3,7 @@ import Navbar from "../components/Navbar";
 import { isTokenExpired } from '../utils/tokenUtils';
 import { Link, useNavigate } from "react-router-dom";
 
-const Home2 = () => {
+const Home5 = () => {
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
     const tokenExpired = isTokenExpired(token);
@@ -22,16 +22,18 @@ const Home2 = () => {
                 <div className="flex flex-col min-h-screen bg-[#F19ED2]">
                     <div className="w-full flex justify-between mt-32">
                         <div className="flex flex-col mx-auto">
-                            <h1 className="text-white ms-5 lg:ms-0 text-2xl">AKHIRNYA AKU BISA NGERAYAIN ULANG TAHUN KAMU WKWKWK</h1>
-                            <img src="./oD.gif" alt="" className="lg:w-80 h-80 mx-auto"/>
+                            <h1 className="text-white text-lg lg:text-2xl">KALO ADA YANG GENIT GINIIN AJA YANG 🙄</h1>
+                            <div className="flex flex-row">
+                                <img src="./giniin.gif" alt="" className="w-60 mx-auto lg:w-96"/>
+                            </div>
                         </div>
                     </div>
                     <div className="flex justify-around lg:justify-evenly flex-row mt-7">
                         <div>
-                            <Link to={'/'} className="ms-3 text-2xl text-white hover:text-[#D63484]">Prev</Link>
+                            <Link to={'/home4'} className="ms-3 text-2xl text-white hover:text-[#D63484]">Prev</Link>
                         </div>
                         <div>
-                            <Link to={'/home3'} className="me-3 text-2xl text-white hover:text-[#D63484]">Next</Link>
+                            <Link to={'/home7'} className="me-3 text-2xl text-white hover:text-[#D63484]">Next</Link>
                         </div>
                     </div>
                 </div>
@@ -39,4 +41,4 @@ const Home2 = () => {
     )
 }
 
-export default Home2;
+export default Home5;
