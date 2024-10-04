@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Dots:wght@400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.edu-au-vic-wa-nt-dots-regular {
+  font-family: "Edu AU VIC WA NT Dots", cursive;
+  font-optical-sizing: auto;
+  font-weight: 700; /* atau nilai numerik lain sesuai dengan font weight */
+  font-style: normal
+}
+
+/* Wheel container */
+.wheel-container {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  margin: 50px auto;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+/* Wheel */
+.wheel {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 5px solid black;
+  transform-origin: center;
+  transition: transform 5s ease-out;
+  position: relative;
+}
+
+/* Individual segments */
+.wheel-segment {
+  width: 50%;
+  height: 50%;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform-origin: 0 100%;
+  clip-path: polygon(58% 0, 110% 135%, 0 100%); /* Membentuk segitiga untuk setiap segmen */
+  background-color: yellow;
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  font-weight: bold;
+}
+
+/* Adjust pointer */
+.pointer {
+  position: absolute;
+  top: -10px; /* Atur agar jarum lebih dekat ke roda */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 20px solid red; /* Jarum mengarah ke bawah */
+  z-index: 10; /* Pastikan jarum di atas roda */
+}
+
+.pacifico-regular {
+  font-family: "Pacifico", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
