@@ -20,9 +20,9 @@ const Home = () => {
     return(
         <>
             <Navbar/>
-            <div className="flex justify-center mt-5">
-                <Wheel/>
-            </div>
+                <div className="flex justify-center min-h-screen bg-[#F19ED2]">
+                    <Wheel/>
+                </div>
         </>
     )
 }
