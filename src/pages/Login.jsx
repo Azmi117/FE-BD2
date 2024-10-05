@@ -3,6 +3,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../services/authService";
 import useStore from "../store/store";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -20,50 +22,52 @@ const Login = () => {
                 setToken(token);
                 navigate('/');
             } else {
-                alert('Token not found');
+                toast.error('Token not found'); // Toast error jika token tidak ditemukan
             }
         } catch (error) {
             console.error('Login error:', error); // Log error
-            alert('Login error');
+            toast.info('You\'re not my Princess. You\'re not allowed to access this site.'); // Menampilkan notifikasi toast error
         }
     };
 
-    return(
+    return (
         <>
-        <div className="w-screen min-h-screen bg-[#EF5A6F] flex justify-center items-center overflow-x-hidden">
-            <div className="w-72 bg-[#FFF1DB] shadow-md rounded-md">
-                <div>
-                    <h1 className="relative left-32 text-slate text-xl text-[#C75B7A] py-2 pacifico-regular">Login</h1>
+            <div className="w-screen min-h-screen bg-[#EF5A6F] flex justify-center items-center overflow-x-hidden">
+                <div className="w-72 bg-[#FFF1DB] shadow-md rounded-md">
+                    <div>
+                        <h1 className="relative left-32 text-slate text-xl text-[#C75B7A] py-2 pacifico-regular">Login</h1>
+                    </div>
+                    <form onSubmit={handleLogin}>
+                        <div className="flex justify-center p-2">
+                            <div className="bg-[#D4BDAC]">
+                                <img src="https://www.svgrepo.com/show/494757/email.svg" alt="" className="w-8 h-8"/>
+                            </div>
+                            <input 
+                                type="email"
+                                className="px-1"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                        </div>
+                        <div className="flex justify-center p-2">
+                            <div className="bg-[#D4BDAC]">
+                                <img src="https://www.svgrepo.com/show/517588/lock.svg" alt="" className="w-8 h-8"/>
+                            </div>
+                            <input 
+                                type="password" 
+                                className="px-1"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                        </div>
+                        <div className="flex justify-center py-5 bg-">
+                            <button type="submit" className="w-56 bg-[#C75B7A] text-white hover:text-gray-300 rounded-md">Login</button>
+                        </div>
+                    </form>
                 </div>
-                <form onSubmit={handleLogin}>
-                    <div className="flex justify-center p-2">
-                        <div className="bg-[#D4BDAC]">
-                            <img src="https://www.svgrepo.com/show/494757/email.svg" alt="" className="w-8 h-8"/>
-                        </div>
-                        <input 
-                            type="email"
-                            className="px-1"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
-                    </div>
-                    <div className="flex justify-center p-2">
-                        <div className="bg-[#D4BDAC]">
-                            <img src="https://www.svgrepo.com/show/517588/lock.svg" alt="" className="w-8 h-8"/>
-                        </div>
-                        <input 
-                            type="password" 
-                            className="px-1"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
-                    </div>
-                    <div className="flex justify-center py-5 bg-">
-                        <button type="submit" className="w-56 bg-[#C75B7A] text-white hover:text-gray-300 rounded-md">Login</button>
-                    </div>
-                </form>
             </div>
-        </div>
+            {/* Toast Container */}
+            <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
         </>
     )
 }

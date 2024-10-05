@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import DropzoneComponent from "../components/DropZone";
 import { getMe, updateUser } from "../services/userService"; // Import getMe dan updateUser
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; // Import style untuk toast
 
 const Profile = () => {
-  // State untuk menyimpan data user
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [photo, setPhoto] = useState(null); // Akan diisi oleh DropZone atau getMe
   const [currentPhotoUrl, setCurrentPhotoUrl] = useState(""); // URL foto yang ditampilkan
 
-  // Panggil getMe untuk mendapatkan data user saat komponen pertama kali dimuat
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -22,24 +22,31 @@ const Profile = () => {
       }
     };
 
-    fetchUserData(); // Panggil fungsi untuk mendapatkan data user
+    fetchUserData();
   }, []);
 
   // Handler untuk submit form
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Mengumpulkan data untuk update
     const userData = {
       username,
       email,
-      photo, // Foto baru dari DropZone jika ada
+      photo,
     };
 
     try {
       const updatedUser = await updateUser(userData);
-      alert("User updated successfully!");
-      console.log(updatedUser); // Respons dari API
+      toast.success("Profile updated successfully!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false, // Progress bar aktif
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      console.log(updatedUser);
 
       // Jika update berhasil, ganti URL foto yang ditampilkan
       if (userData.photo) {
@@ -47,7 +54,15 @@ const Profile = () => {
       }
     } catch (error) {
       console.error("Failed to update user:", error);
-      alert("Error updating user. Please try again.");
+      toast.info("Failed to update profile. Please try again.", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
 
@@ -56,7 +71,7 @@ const Profile = () => {
       <div className="w-72 h-full bg-[#FFCBCB] rounded-xl mt-24 flex flex-col">
         <div className="flex justify-center">
           <img
-            src={currentPhotoUrl || "https://via.placeholder.com/150"} // Foto dari API atau placeholder
+            src={currentPhotoUrl || "https://via.placeholder.com/150"}
             alt="User Profile"
             className="w-24 h-24 rounded-full relative -top-8"
           />
@@ -75,8 +90,8 @@ const Profile = () => {
                   type="text"
                   className="px-1"
                   id="username"
-                  value={username} // Hubungkan state dengan input
-                  onChange={(e) => setUsername(e.target.value)} // Update state saat input berubah
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                 />
               </div>
             </div>
@@ -92,24 +107,37 @@ const Profile = () => {
                   type="email"
                   className="px-1"
                   id="email"
-                  value={email} // Hubungkan state dengan input
-                  onChange={(e) => setEmail(e.target.value)} // Update state saat input berubah
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
             </div>
             <div className="mx-auto mt-3">
               <label htmlFor="photo">Photo</label>
               <div className="flex flex-row mb-5">
-                {/* Dropzone untuk mengganti file foto */}
-                <DropzoneComponent onFileSelect={(file) => setPhoto(file)} /> {/* Update state photo */}
+                <DropzoneComponent onFileSelect={(file) => setPhoto(file)} />
               </div>
             </div>
-            <button type="submit" className="w-60 bg-[#FF4E88] mx-auto mb-8 rounded-sm text-white">
+            <button
+              type="submit"
+              className="w-60 bg-[#FF4E88] mx-auto mb-8 rounded-sm text-white"
+            >
               Submit
             </button>
           </div>
         </form>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 };
